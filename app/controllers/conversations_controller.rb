@@ -9,15 +9,22 @@ class ConversationsController < ApplicationController
 	end
 
 	def create
-	  @conversation = Conversation.new(params[:conversation])
-	  #raise
-	  if @conversation.save
-		redirect_to @conversation
+	  conversation = Conversation.new(params[:conversation])
+	  conversation.version = 1
+	  if conversation.save
+		redirect_to conversation
 	  else
+		render :new
 	  end
 	end
 
 	def show
 	  @conversation = Conversation.find(params[:id])
+	  #@line = Line.new
 	end
+	
+	def add_line
+	  
+	end
+	
 end
