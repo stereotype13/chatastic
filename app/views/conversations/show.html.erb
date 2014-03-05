@@ -1,0 +1,9 @@
+<h1>Conversation Show</h1>
+
+<p>Participants:</p>
+
+<ul>
+	<% @conversation.users.each do |user| %>
+		<li><%= user.user_name %></li>
+	<% end %>
+</ul>

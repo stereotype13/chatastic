@@ -11,13 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140305044229) do
+ActiveRecord::Schema.define(:version => 20140305215759) do
 
   create_table "conversations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
     t.integer  "version"
+  end
+
+  add_index "conversations", ["user_id"], :name => "index_conversations_on_user_id"
+
+  create_table "conversations_users", :force => true do |t|
+    t.integer "conversation_id"
+    t.integer "user_id"
   end
 
   create_table "lines", :force => true do |t|
@@ -27,6 +34,9 @@ ActiveRecord::Schema.define(:version => 20140305044229) do
     t.integer  "conversation_id"
     t.integer  "user_id"
   end
+
+  add_index "lines", ["conversation_id"], :name => "index_lines_on_conversation_id"
+  add_index "lines", ["user_id"], :name => "index_lines_on_user_id"
 
   create_table "participants", :force => true do |t|
     t.integer  "user_id"
