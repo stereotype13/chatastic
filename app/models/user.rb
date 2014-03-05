@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :user_name
   # attr_accessible :title, :body
   validates :user_name, uniqueness: true
+
+  def active_for_authentication?
+    self.update_attribute(:signed_in, true)
+  end
 end

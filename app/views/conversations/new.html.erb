@@ -1,2 +1,10 @@
 <h1>New Conversation</h1>
 
+<ul>
+  <% @users_online.each do |user_online| %>
+    <li>
+      <%= user_online.user_name %>
+    </li>
+  <% end %>
+</ul>
+
