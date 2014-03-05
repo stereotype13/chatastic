@@ -13,4 +13,7 @@ class ConversationsController < ApplicationController
 	  @conversation.user = user
 	end
 
+	def show
+		@conversation = Conversation.find(:id)
+	end
 end

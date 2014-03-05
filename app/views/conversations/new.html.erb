@@ -8,3 +8,15 @@
   <% end %>
 </ul>
 
+<% form_for @conversation do |f| %>
+  <% @users_online.each do |user_online| %>
+    <% fields_for 'participants[]' , user_online do |g| %>
+
+   
+      <%= g.check_box :id %>
+
+    <% end %>
+  <% end %>
+  <%= f.submit "Save" %>
+<% end %>
+

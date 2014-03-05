@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   validates :user_name, uniqueness: true
 
-  def active_for_authentication?
-    self.update_attribute(:signed_in, true)
-  end
+  # def active_for_authentication?
+  #   self.update_attribute(:signed_in, true)
+  # end
 end

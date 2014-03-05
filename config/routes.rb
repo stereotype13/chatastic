@@ -4,7 +4,7 @@ Chatastic::Application.routes.draw do
   root to: "welcome#index"
 
   resources :users do
-	resources :conversations, shallow: true
+	 resources :conversations, shallow: true
   end
   
   # The priority is based upon order of creation:
