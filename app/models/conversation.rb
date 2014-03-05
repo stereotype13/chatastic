@@ -3,9 +3,7 @@ class Conversation < ActiveRecord::Base
   
   attr_accessible :user, :version
   
-  belongs_to :user
-  has_many :participants
+  has_and_belongs_to_many :users
   has_many :lines
- 
-  accepts_nested_attributes_for :participants
+   
 end

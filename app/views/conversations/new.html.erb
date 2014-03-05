@@ -1,23 +1,9 @@
 <h1>New Conversation</h1>
 
-<ul>
-  <% @users_online.each do |user_online| %>
-    <li>
-      <%= user_online.user_name %>
-    </li>
-  <% end %>
-</ul>
 
-<%= form_for [@user, @conversation] do |f| %>
-	<% @users_online.each do |user_online| %>
-	<p>Users online: </p>
-    <% fields_for :participants, user_online do |g| %>
 
-   
-      <%= g.check_box :user_name %>
-
-    <% end %>
-  <% end %>
-  <%= f.submit "Save" %>
+<%= simple_form_for [@user, @conversation] do |f| %>
+	<%= f.association :users, as: :check_boxes, label_method: :user_name  %>
+	<%= f.button :submit %>
 <% end %>
 

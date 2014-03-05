@@ -12,4 +12,6 @@ class User < ActiveRecord::Base
   # def active_for_authentication?
   #   self.update_attribute(:signed_in, true)
   # end
+  
+  has_and_belongs_to_many :conversations
 end
