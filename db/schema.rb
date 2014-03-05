@@ -20,8 +20,6 @@ ActiveRecord::Schema.define(:version => 20140305044229) do
     t.integer  "version"
   end
 
-  add_index "conversations", ["user_id"], :name => "index_conversations_on_user_id"
-
   create_table "lines", :force => true do |t|
     t.text     "text"
     t.datetime "created_at",      :null => false
@@ -29,9 +27,6 @@ ActiveRecord::Schema.define(:version => 20140305044229) do
     t.integer  "conversation_id"
     t.integer  "user_id"
   end
-
-  add_index "lines", ["conversation_id"], :name => "index_lines_on_conversation_id"
-  add_index "lines", ["user_id"], :name => "index_lines_on_user_id"
 
   create_table "participants", :force => true do |t|
     t.integer  "user_id"
