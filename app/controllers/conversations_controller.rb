@@ -24,7 +24,18 @@ class ConversationsController < ApplicationController
 	end
 	
 	def add_line
-	  
+	  conversation = Conversation.find(params[:id])
+	  line = Line.new(text: params[:line])
+	  line.user = current_user
+	  conversation.lines << line
+	  conversation.version += 1
+	  if conversation.save
+	  	data = {version: conversation.version}
+  		render :json => data, :status => :ok
+	  else
+	  	flash[:error] = "Error updating conversation."
+	  	render nothing: true 	
+	  end
 	end
 	
 end

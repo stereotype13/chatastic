@@ -1,5 +1,6 @@
 class Line < ActiveRecord::Base
   attr_accessible :text
   
-  belongs_to :user, :conversation
+  belongs_to :user
+  belongs_to :conversation
 end

@@ -1,7 +1,5 @@
 <h1>New Conversation</h1>
 
-
-
 <%= simple_form_for [@user, @conversation] do |f| %>
 	<%= f.association :users, as: :check_boxes, label_method: :user_name  %>
 	<%= f.button :submit %>

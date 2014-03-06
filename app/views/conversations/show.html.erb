@@ -8,10 +8,33 @@
 	<% end %>
 </ul>
 
-<input type="button" value="Button 1" onClick='conversation_version()'/>	
+
+<table id="main_table">
+  <thead>
+    <tr><td>User</td><td>Message</td></tr>
+  </thead>
+  <tbody>
+    <% @conversation.lines.each do |line| %>
+      <tr><td><%= line.user.user_name %></td><td><%= line.text %></td></tr>
+    <% end %>
+    <tr><td></td><td></td></tr>
+  </tbody>
+</table>
+
+<%= text_field_tag 'add_line' %>
+<input type="button" value="Button 1" onClick='conversation_version()', autofocus/>	
 
 <script type="text/javascript">
   function conversation_version(){
-	alert("asdf");
+    var line = $('#add_line')[0].value;
+    var url = $(location).attr('href');
+    $('#main_table tbody tr:last').after("<tr><td>" +  <%= current_user.user_name %>+ "</td><td>" + line + "</td></tr>");
+    $.get(
+      url + "/add_line", 
+      {line: line}, 
+      function(data){
+        alert(data.version);
+      }
+    );
   }
 </script>
