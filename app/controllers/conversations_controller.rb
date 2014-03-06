@@ -45,9 +45,22 @@ class ConversationsController < ApplicationController
 	end
 	
 	def get_lines
+	  # conversation = Conversation.find(params[:id])
+	  # lines = conversation.lines
+	  # data = {lines: lines}
+	  # render :json => data, :status => :ok
+	  
 	  conversation = Conversation.find(params[:id])
 	  lines = conversation.lines
-	  data = {lines: lines}
+	  
+	  line_array = []
+	  
+	  lines.each do |line|
+		line_hash = {user_name: line.user.user_name, text: line.text}
+		line_array << line_hash
+	  end
+	  
+	  data = {lines: line_array}
 	  render :json => data, :status => :ok
 	end
 end
