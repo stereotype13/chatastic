@@ -7,7 +7,8 @@ Chatastic::Application.routes.draw do
 	 resources :conversations, shallow: true do
 		member do
 			get 'add_line'
-			get 'version'
+			get 'get_version'
+			get 'get_lines'
 		end
 	 end
   end

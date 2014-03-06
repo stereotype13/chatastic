@@ -30,7 +30,7 @@ class ConversationsController < ApplicationController
 	  conversation.lines << line
 	  conversation.version += 1
 	  if conversation.save
-	  	data = {version: conversation.version}
+	  	data = {version: conversation.version, user_name: current_user.user_name, text: line.text}
   		render :json => data, :status => :ok
 	  else
 	  	flash[:error] = "Error updating conversation."
@@ -38,4 +38,16 @@ class ConversationsController < ApplicationController
 	  end
 	end
 	
+	def get_version
+	  conversation = Conversation.find(params[:id])
+	  data = {version: conversation.version}
+	  render :json => data, :status => :ok
+	end
+	
+	def get_lines
+	  conversation = Conversation.find(params[:id])
+	  lines = conversation.lines
+	  data = {lines: lines}
+	  render :json => data, :status => :ok
+	end
 end
