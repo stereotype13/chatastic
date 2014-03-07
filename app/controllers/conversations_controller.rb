@@ -6,6 +6,7 @@ class ConversationsController < ApplicationController
 	  
 	  @conversation = Conversation.new
 	  @conversation.users = @online_users
+	  
 	end
 
 	def create
@@ -27,10 +28,11 @@ class ConversationsController < ApplicationController
 	  conversation = Conversation.find(params[:id])
 	  line = Line.new(text: params[:line])
 	  line.user = current_user
-	  conversation.lines << line
-	  conversation.version += 1
+	  
+	  conversation.add_line line
+	 
 	  if conversation.save
-	  	data = {version: conversation.version, user_name: current_user.user_name, text: line.text}
+	  	data = {line_number: line.line_number, user_name: line.user.user_name, text: line.text}
   		render :json => data, :status => :ok
 	  else
 	  	flash[:error] = "Error updating conversation."
@@ -56,8 +58,8 @@ class ConversationsController < ApplicationController
 	  line_array = []
 	  
 	  lines.each do |line|
-		line_hash = {user_name: line.user.user_name, text: line.text}
-		line_array << line_hash
+			line_hash = {line_number: line.line_number, user_name: line.user.user_name, text: line.text}
+			line_array << line_hash
 	  end
 	  
 	  data = {lines: line_array}

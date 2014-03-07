@@ -38,7 +38,6 @@
       {line: line}, 
       function(data){
         $('#main_table tbody').append("<tr><td>" +  data.user_name + "</td><td>" + data.text + "</td></tr>");
-		//latest_version = data.version;
 	  }
     );
   };
@@ -56,9 +55,9 @@
 						$.get(
 							url + "/get_lines",
 							function(data){
-								$('#main_table tbody').html("");
+								//$('#main_table tbody').html("");
 								var i;
-								alert(data.lines[0].conversation_id);
+								//alert(data.lines[0].conversation_id);
 								for(i = 0; index < data.lines.length; ++index){
 									
 								};
