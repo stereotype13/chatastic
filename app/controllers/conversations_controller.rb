@@ -6,7 +6,7 @@ class ConversationsController < ApplicationController
 	  
 	  @conversation = Conversation.new
 	  @conversation.users = @online_users
-	  
+
 	end
 
 	def create
@@ -52,8 +52,13 @@ class ConversationsController < ApplicationController
 	  # data = {lines: lines}
 	  # render :json => data, :status => :ok
 	  
+
 	  conversation = Conversation.find(params[:id])
-	  lines = conversation.lines
+
+	  user_latest_version = params[:version]
+	  conversation_latest_version = conversation.version
+
+	  lines = conversation.lines.where("line_number >= #{user_latest_version}")
 	  
 	  line_array = []
 	  

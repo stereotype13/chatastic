@@ -12,12 +12,10 @@
 
 <table id="main_table">
   <thead>
-    <tr><td>User</td><td>Message</td></tr>
+    <tr><td>Line Number</td><td>User</td><td>Message</td></tr>
   </thead>
   <tbody>
-    <% @conversation.lines.each do |line| %>
-      <tr><td><%= line.user.user_name %></td><td><%= line.text %></td></tr>
-    <% end %>
+    
   
   </tbody>
 </table>
@@ -29,6 +27,7 @@
 
   var latest_version = 1;
   var url = $(location).attr('href');
+  var add_string = "";
   
   function submit(){
     var line = $('#add_line')[0].value;
@@ -37,7 +36,7 @@
       url + "/add_line", 
       {line: line}, 
       function(data){
-        $('#main_table tbody').append("<tr><td>" +  data.user_name + "</td><td>" + data.text + "</td></tr>");
+        $('#add_line')[0].value = "";
 	  }
     );
   };
@@ -51,18 +50,22 @@
 					if(data.version > latest_version){
 						//alert("I am here");
 						$('#version')[0].innerHTML = data.version;
-						latest_version = data.version;
+						//latest_version = data.version;
 						$.get(
-							url + "/get_lines",
-							function(data){
-								//$('#main_table tbody').html("");
-								var i;
-								//alert(data.lines[0].conversation_id);
-								for(i = 0; index < data.lines.length; ++index){
-									
-								};
-							}
-						);
+              url + "/get_lines",
+              {"version": latest_version},
+              function(data){
+                var i = 0; 
+                var add_string = ""; 
+
+                for(i = 0; i < data.lines.length; i++){
+                  add_string = "<tr><td>" + data.lines[i].line_number + "</td>" + "<td>" + data.lines[i].user_name + "</td>" + "<td>" + data.lines[i].text + "</td></tr>";
+                  $('#main_table tbody').append(add_string); add_string ="";
+                };
+                
+              }
+            );
+            latest_version = data.version;
 					};
 				  }
 				);
