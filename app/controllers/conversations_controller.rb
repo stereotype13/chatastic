@@ -61,9 +61,13 @@ class ConversationsController < ApplicationController
 	  lines = conversation.lines.where("line_number >= #{user_latest_version}")
 	  
 	  line_array = []
+
+	  renderer = Redcarpet::Render::HTML.new
+    extensions = {fenced_code_blocks: true}
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
 	  
 	  lines.each do |line|
-			line_hash = {line_number: line.line_number, user_name: line.user.user_name, text: line.text}
+			line_hash = {line_number: line.line_number, user_name: line.user.user_name, text: redcarpet.render(line.text).html_safe}
 			line_array << line_hash
 	  end
 	  
